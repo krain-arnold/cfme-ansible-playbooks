@@ -1,0 +1,27 @@
+---
+- hosts: all
+  gather_facts: false
+  connection: local
+
+  vars:
+    provider_id: "{{ provider_id }}"
+    max_retries: 9
+    retry_interval: 20
+
+  tasks:
+    - debug: var=manageiq.api_url
+    - debug: var=manageiq.api_token
+    - debug: var=manageiq.service
+
+    - name: Set the Provider URL
+      set_fact:
+        provider_url: "{{ manageiq.api_url }}/api/providers/{{ provider_id }}"
+
+    - debug: var=provider_url
+
+    - name: Set the Service URL
+      set_fact:
+        svc_url: "/api/{{ manageiq.service }}"
+
+    - debug: var=svc_url
+
