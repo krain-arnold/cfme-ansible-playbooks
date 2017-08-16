@@ -1,0 +1,18 @@
+---
+- hosts: all
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - debug: var=manageiq.api_url
+    - debug: var=manageiq.api_token
+    - debug: var=manageiq.service
+
+    - name: Initialize an empty array for vms
+      set_fact:
+        vms: []
+
+    - name: Populate the array with VMs tagged as managed-linux
+      set_fact:
+        vms: "{{ manageiq.api_url }}/api/vms?by_tag=/service_level/managed_linux"
+    - debug: var=vms
