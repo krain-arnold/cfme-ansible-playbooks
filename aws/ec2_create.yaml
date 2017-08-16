@@ -35,11 +35,11 @@
         assign_public_ip: "{{ assign_public_ip }}" #e.g. yes or no
       register: newmachines
 
-      - debug: var=newmachines
+    - debug: var=newmachines
 
-      - set_fact: new_vm_uuid="{{ newmachines.instances[0].ansible_facts.hw_product_uuid }}"
+    - set_fact: new_vm_uuid="{{ newmachines.instances[0].ansible_facts.hw_product_uuid }}"
 
-      - debug: var=new_vm_uuid
+    - debug: var=new_vm_uuid
 
     - name: Wait for SSH to start
       wait_for:
