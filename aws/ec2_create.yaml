@@ -31,7 +31,7 @@
         wait: "{{ wait }}"                         #e.g. yes or no
         group: "{{ group }}"                       #e.g. webserver
         count: "{{ count }}"                       #e.g. 3
-        vpc_subnet_id: "{{ vpc_subnet_id }"        #e.g. subnet-29e63245
+        vpc_subnet_id: "{{ vpc_subnet_id }}"       #e.g. subnet-29e63245
         assign_public_ip: "{{ assign_public_ip }}" #e.g. yes or no
       register: newmachines
 
