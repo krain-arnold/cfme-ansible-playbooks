@@ -38,7 +38,7 @@
 
     - debug: var=newmachines
 
-    - set_fact: new_vm_uuid="{{ newmachines.instances[0].ansible_facts.hw_product_uuid }}"
+    - set_fact: new_vm_uuid="{{ newmachines.instances[0].id }}"
 
     - debug: var=new_vm_uuid
 
