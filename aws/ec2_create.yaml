@@ -25,7 +25,8 @@
 
     - name: Create the instance
       ec2:
-        key_name: "{{ key_name }}"
+        key_name: "{{ key_name }}"                 #e.g. cfme
+        region: "{{ region  }}"                    #e.g. eu-west-1
         instance_type: "{{ instance_type }}"       #e.g. t2.micro
         image: "{{ image }}"                       #e.g. ami-123456
         wait: "{{ wait }}"                         #e.g. yes or no
