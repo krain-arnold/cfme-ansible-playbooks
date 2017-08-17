@@ -297,7 +297,7 @@
         <!-- TODO - only show this if the jacorb subsystem is added  -->
         <interface name="unsecure">
             <!--
-              ~  Used for IIOP sockets in the standard configuration.
+	      ~  Used for IIOP sockets in the standard configuration.  
               ~                  To secure JacORB you need to setup SSL 
               -->
             <inet-address value="${jboss.bind.address.unsecure:127.0.0.1}"/>
@@ -308,8 +308,8 @@
         <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
         <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9443}"/>
         <socket-binding name="ajp" port="8009"/>
-        <socket-binding name="http" port="{{ http_port }}"/>
-        <socket-binding name="https" port="{{ https_port }}"/>
+        <socket-binding name="http" port="8080"/>
+        <socket-binding name="https" port="8443"/>
         <socket-binding name="osgi-http" interface="management" port="8090"/>
         <socket-binding name="remoting" port="4447"/>
         <socket-binding name="txn-recovery-environment" port="4712"/>
