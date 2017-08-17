@@ -30,13 +30,13 @@
 
     - name: Populate the array with VMs tagged as managed-linux
       set_fact:
-        vms: "{{ vms }} + [ '{{ item }}' ]"
+        vms: "{{ vms }} + [ '{{ item.name }}' ]"
       with_items: "{{ output.json.resources }}"
       
     - debug: var=vms
 
     - name: Add Managed Servers to a Group
       add_host:
-        name: "{{ item.name }}"
+        name: "{{ item }}"
         groups: managed_servers
       with_items: "{{ vms }}"
