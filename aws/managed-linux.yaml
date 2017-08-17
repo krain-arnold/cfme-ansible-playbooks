@@ -47,7 +47,11 @@
   become: yes
   gather_facts: false
   tasks:
-    -name: update servers
-     yum:
-       name: '*'
-       state: latest
+    - name: Check Connection
+      ping:
+  
+  
+   # -name: update servers
+    # yum:
+     #  name: '*'
+      # state: latest
