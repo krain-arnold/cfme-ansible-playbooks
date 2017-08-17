@@ -30,7 +30,7 @@
 
     - name: Populate the array with VMs tagged as managed-linux
       set_fact:
-        vms: "{{ output.json.resources.name }}"
-      with_items: "{{ output }}"
+        vms: "{{ item[0].name }}"
+      with_items: "{{ output.resources }}"
       
     - debug: var=vms
