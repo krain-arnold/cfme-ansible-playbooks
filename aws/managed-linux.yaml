@@ -44,5 +44,5 @@
 - hosts: managed_servers
   name: Execute yum update
   yum:
-    name: *
+    name: '*'
     state: latest
