@@ -20,6 +20,8 @@
     provider_id: "{{ provider_id }}"
     max_retries: 9 
     retry_interval: 20
+    # The following key must be accessible to the awx user on CF appliance
+    aws_pem: /var/www/miq/vmdb/cfme.pem   # awx owns this file
 
   tasks:
     - name: Launch DB instance
@@ -72,13 +74,21 @@
       add_host:
         name: "{{ item.public_ip }}"
         groups: db_provisioned
+        ansible_ssh_user: ec2-user
+        ansible_ssh_private_key_file: "{{ aws_pem }}"
       with_items: "{{ ec2_db.instances }}"
     
     - name: Add App instances to a group
       add_host:
         name: "{{ item.public_ip }}"
         groups: app_provisioned
+        ansible_ssh_user: ec2-user
+        ansible_ssh_private_key_file: "{{ aws_pem }}"
       with_items: "{{ ec2_app.instances }}"
+
+      # Debug pause for 5 minutes to see if EMS refresh isn't picking up the new instances
+    - name: sleep for a specified interval
+      command: sleep 300
    
     - name: Set the Provider URL
       set_fact:
