@@ -207,7 +207,7 @@
   gather_facts: true
 
   vars:
-    region:   us-east-1
+    region:  "{{ region }}" 
 
   pre_tasks:
     - name: Get ext_database_name
