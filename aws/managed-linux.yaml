@@ -41,10 +41,10 @@
         groups: managed_servers
       with_items: "{{ vms }}"
       
-- name: Execute yum update
-  hosts: managed_servers
+    - name: Execute yum update
+      hosts: managed_servers
 
-  tasks:
-    yum:
-      name: '*'
-      state: latest
+      tasks:
+        yum:
+          name: '*'
+          state: latest
