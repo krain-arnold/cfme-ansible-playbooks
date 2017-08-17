@@ -1,5 +1,7 @@
+#this is a work in progress. and it's broken. don't use it.
 ---
-- hosts: all
+- name: Create managed_server group
+  hosts: all
   gather_facts: false
   connection: local
 
@@ -10,7 +12,7 @@
 
     - name: Lookup instance href
       uri:
-        url: "{{ manageiq.api_url }}/api/vms?by_tag=/service_level/managed_linux"
+        url: "{{ manageiq.api_url }}/api/vms?by_tag=/service_level/managed_linux&expand=resources"
         method: GET
         body:
           action: refresh
@@ -21,14 +23,36 @@
           Content-Type: "application/json"
         status_code: 200
       register: output
-
+      
+    - debug: var=output
+    
     - name: Initialize an empty array for vms
       set_fact:
         vms: []
 
     - name: Populate the array with VMs tagged as managed-linux
       set_fact:
-        vms: "{{ vms }} + [ { 'href': '/api/vms/{{ item.json.resources[0].id }}' }  ]"
-      with_items: "{{ output.results }}"
+        vms: "{{ vms }} + [ '{{ item.name }}' ]"
+      with_items: "{{ output.json.resources }}"
       
     - debug: var=vms
+
+    - name: Add Managed Servers to a Group
+      add_host:
+        name: "{{ item }}"
+        groups: managed_servers
+      with_items: "{{ vms }}"
+      
+- name: Execute yum update
+  hosts: managed_servers
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: Check Connection
+      ping:
+  
+  
+   # -name: update servers
+    # yum:
+     #  name: '*'
+      # state: latest
