@@ -37,6 +37,6 @@
 
     - name: Add Managed Servers to a Group
       add_host:
-      name: "{{ item.name }}"
-      groups: managed_servers
-    with_items: "{{ vms }}"
+        name: "{{ item.name }}"
+        groups: managed_servers
+      with_items: "{{ vms }}"
