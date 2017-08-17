@@ -42,7 +42,7 @@
       with_items: "{{ vms }}"
       
 - name: Execute yum update
-- hosts: managed_servers
+  hosts: managed_servers
 
   tasks:
     yum:
