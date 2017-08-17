@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- name: Create managed_server group
+  hosts: all
   gather_facts: false
   connection: local
 
@@ -41,10 +42,12 @@
         groups: managed_servers
       with_items: "{{ vms }}"
       
-    - name: Execute yum update
-      hosts: managed_servers
-
-      tasks:
-        yum:
-          name: '*'
-          state: latest
+- name: Execute yum update
+  hosts: managed_servers
+  become: yes
+  gather_facts: false
+  tasks:
+    -name: update servers
+     yum:
+       name: '*'
+       state: latest
